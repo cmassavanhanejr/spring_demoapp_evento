@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.eventoapp.eventoapp.model.Evento;
 import com.eventoapp.eventoapp.repository.EventoRepository;
@@ -24,7 +25,16 @@ public class EventoController {
 	@PostMapping("/cadastrarEvento")
 	public String form(Evento evento) {
 		er.save(evento);
-		return "redirect:/cadastrarEvento";
+		return "redirect:/eventos";
+	}
+	
+	
+	@RequestMapping("/eventos")
+	public ModelAndView listaEventos() {
+		ModelAndView mv =new ModelAndView("index");
+		Iterable<Evento> eventos = er.findAll();
+		mv.addObject("evento", eventos);
+		return mv;
 	}
 	
 	
