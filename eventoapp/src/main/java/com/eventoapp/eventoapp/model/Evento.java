@@ -1,6 +1,19 @@
 package com.eventoapp.eventoapp.model;
 
+
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Evento {
+	
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private long codigo;
 	
 	private String nome;
 	private String local;
@@ -8,6 +21,12 @@ public class Evento {
 	private String horario;
 	
 	
+	public long getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(long codigo) {
+		this.codigo = codigo;
+	}
 	public String getNome() {
 		return nome;
 	}
