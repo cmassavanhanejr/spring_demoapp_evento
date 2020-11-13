@@ -2,10 +2,13 @@ package com.eventoapp.eventoapp.model;
 
 
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Evento {
@@ -19,6 +22,9 @@ public class Evento {
 	private String local;
 	private String data;
 	private String horario;
+	
+	@OneToMany
+	private List<Convidado> convidado;
 	
 	
 	public long getCodigo() {
@@ -50,6 +56,18 @@ public class Evento {
 	}
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+	/**
+	 * @return the convidado
+	 */
+	public List<Convidado> getConvidado() {
+		return convidado;
+	}
+	/**
+	 * @param convidado the convidado to set
+	 */
+	public void setConvidado(List<Convidado> convidado) {
+		this.convidado = convidado;
 	}
 	
 	
