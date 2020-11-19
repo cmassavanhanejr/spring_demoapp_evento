@@ -3,32 +3,67 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 	<title>Eventos APP</title>
+	<meta charset="UTF-8">
 	<!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
 		 <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  
+  <link rel="stylesheet" href="/style/style.css"/>
 	
 </head>
 <body>
-
-	<h1 >Detalhes do Evento<strong><span th:text="${evento.nome}"></span></strong></h1>
-	<a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de  Eventos</a>
-	<div class="container">
+	<header>
+	<nav>
+	    <div class="nav-wrapper">
+	      <a href="#" class="brand-logo">Detalhes do Evento<strong><span th:text="${evento.nome}"></span></strong></a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <li><a href="/eventos" class="waves-effect waves-light btn"><i class="material-icons left">list</i>Lista de  Evento</a></li>
+	      </ul>
+	    </div>
+  	</nav>
+	</header>
+	<h1 ></h1>
+	
+	<div class="container detalhesEvento">
 		<div class="row">
 			<p><span th:text="${evento.data}"></span></p>
 			<p><span th:text="${evento.local}"></span></p>
 			<p><span th:text="${evento.horario}"></span></p>
 		</div>
 	
-	<form method="post" action="">
-		<input placeholder="rg" type="text" value="" name="rg">
-		<input placeholder="nome" type="text" value="" name="nome">
+	<th:block th:include="mensagemValidacao"></th:block>
+		</div>
+		
+		<div class="container formConvidado">
+	<form method="post">
+		<input placeholder="rg" type="text" value="" name="rg" required="required">
+		<input placeholder="nome" type="text" value="" name="nome" required="required" class="validate">
 		<button class="waves-effect waves-light btn" type="submit"><i class="material-icons left">add</i>Adicionar convidado</button>
 	</form>
+	
+	
 	</div>
+	
+	<table class="centered container tabelaContainer">
+			<caption style=""><h4>Lista de Convidados</h4></caption>
+			<thead>
+				<tr>
+					<th>rg</th>
+					<th>nome</th>
+					<th>Operacoes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="convidado : ${convidados}">
+					<td><span th:text="${convidado.rg}"></span> </td>
+					<td><span th:text="${convidado.nome}"></span> </td>
+					<td><a class="btn-floating btn-large waves-effect waves-light red" th:href="@{/apagarConvidado/{id}(id=${convidado.rg})}"><i class="material-icons">delete</i></a></td>
+				</tr>
+			</tbody>
+		</table>
+
 	
 	
 	

@@ -3,20 +3,33 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 	<title>Eventos APP</title>
+	<meta charset="UTF-8">
 	<!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
 		 <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      
+      <link rel="stylesheet" href="style/style.css"/>
   
 	
 </head>
 <body>
 
-	<h1>Lista de Eventos</h1>
+	<header>
+	<nav>
+	    <div class="nav-wrapper">
+	      <a href="#" class="brand-logo">Eventos</a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <li><a href="/cadastrarEvento" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Cadastrar Evento</a></li>
+
+	      </ul>
+	    </div>
+  	</nav>
+	</header>
 	
-	<a href="/cadastrarEvento" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Cadastrar Evento</a>
+	
 	<div class="container">
 		<table class="centered">
 			<thead>
@@ -25,14 +38,19 @@
 					<th>local</th>
 					<th>data</th>
 					<th>horario</th>
+					<th>Operações</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="evento : ${evento}">
-					<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0,evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
+					<!-- @{/detalheEnf/{id}(id=${enfermeiro.id})} 
+						<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0,evento.codigo)).build()}"><span th:text="${evento.nome}"></span></a></td>
+					-->
+					<td><a th:href="@{/detalhesEvento/{id}(id=${evento.codigo})}"><span th:text="${evento.nome}"></span></a></td>
 					<td><span th:text="${evento.local}"></span> </td>
 					<td><span th:text="${evento.data}"></span> </td>
 					<td><span th:text="${evento.horario}"></span></td>
+					<td><a class="btn-floating btn-large waves-effect waves-light red" th:href="@{/apagarEvento/{id}(id=${evento.codigo})}"><i class="material-icons">delete</i></a></td>
 				</tr>
 			</tbody>
 		</table>
